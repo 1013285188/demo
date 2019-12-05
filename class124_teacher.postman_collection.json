@@ -1,0 +1,319 @@
+{
+	"info": {
+		"_postman_id": "bf525cee-9bfb-4861-a3b5-80e34816a95f",
+		"name": "class124",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b338a95a-ed13-40ec-92b3-4be8ec07b9ee",
+						"exec": [
+							"pm.test(\"是否包含class121\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"class121\");",
+							"});",
+							"",
+							"pm.test(\"JSON格式的数据验证，要按照数据的层级去拿取被测试的数据\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    console.log(jsonData.data.user.name)",
+							"    pm.expect(jsonData.data.user.name).to.eql(\"class121\");",
+							"});",
+							"",
+							"pm.test(\"中文的处理\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.user.rank_name).to.eql(\"注册用户\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"   pm.expect(JSON.stringify(pm.response.json())).to.include(\"注册用户\");",
+							"});",
+							"",
+							"",
+							"var jsonData = pm.response.json();",
+							"console.log(jsonData.data.session.sid)",
+							"pm.environment.set(\"sid\",jsonData.data.session.sid);",
+							"pm.environment.set(\"uid\",jsonData.data.session.uid);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/plain",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "class121",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "12345678",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://shop.ecmobile.cn/ecmobile/?url=/user/signin",
+					"protocol": "http",
+					"host": [
+						"shop",
+						"ecmobile",
+						"cn"
+					],
+					"path": [
+						"ecmobile",
+						""
+					],
+					"query": [
+						{
+							"key": "url",
+							"value": "/user/signin"
+						}
+					]
+				},
+				"description": "url address：\n    http://shop.ecmobile.cn/ecmobile/?url=/user/signin\nmethod：\n    post\nparameters：\n    name\n    password\nreturn：\n    ………………\n    ……………………"
+			},
+			"response": []
+		},
+		{
+			"name": "userinfo",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/plain",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "json",
+							"value": "{\"session\":{\"uid\":\"{{uid}}\",\"sid\":\"{{sid}}\"}}",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://shop.ecmobile.cn/ecmobile/?url=/user/info",
+					"protocol": "http",
+					"host": [
+						"shop",
+						"ecmobile",
+						"cn"
+					],
+					"path": [
+						"ecmobile",
+						""
+					],
+					"query": [
+						{
+							"key": "url",
+							"value": "/user/info"
+						}
+					]
+				},
+				"description": "http://shop.ecmobile.cn/ecmobile/?url=/user/info\n"
+			},
+			"response": []
+		},
+		{
+			"name": "add_cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fb382d36-0021-4295-a575-d20c6ccbc2ca",
+						"exec": [
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status.succeed).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/plain",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "json",
+							"value": "{\"spec\":[],\"session\":{\"uid\":\"{{uid}}\",\"sid\":\"{{sid}}\"},\"goods_id\":134,\"number\":1}",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://shop.ecmobile.cn/ecmobile/?url=/cart/create",
+					"protocol": "http",
+					"host": [
+						"shop",
+						"ecmobile",
+						"cn"
+					],
+					"path": [
+						"ecmobile",
+						""
+					],
+					"query": [
+						{
+							"key": "url",
+							"value": "/cart/create"
+						}
+					]
+				},
+				"description": "http://shop.ecmobile.cn/ecmobile/?url=/cart/create"
+			},
+			"response": []
+		},
+		{
+			"name": "get_database_rec_id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0d94b3a4-1be2-48dd-a91a-7e201b133d2a",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"rec_id\", jsonData[0].rec_id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://192.168.118.130:3000/api/ecs_cart?_where=(user_id,eq,{{uid}})~and(goods_id,eq,134)",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"118",
+						"130"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"ecs_cart"
+					],
+					"query": [
+						{
+							"key": "_where",
+							"value": "(user_id,eq,{{uid}})~and(goods_id,eq,134)"
+						}
+					]
+				},
+				"description": " http://192.168.118.130:3000/api/ecs_cart?_where=(uid,eq,{{uid}})~and(goods_id,eq,141) "
+			},
+			"response": []
+		},
+		{
+			"name": "delete_cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4e18e871-49cc-4001-8655-1a6e4eb2ed0c",
+						"exec": [
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status.succeed).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "json",
+							"value": "{\"session\":{\"uid\":\"{{uid}}\",\"sid\":\"{{sid}}\"},\"rec_id\":{{rec_id}}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://shop.ecmobile.cn/ecmobile/?url=/cart/delete",
+					"protocol": "http",
+					"host": [
+						"shop",
+						"ecmobile",
+						"cn"
+					],
+					"path": [
+						"ecmobile",
+						""
+					],
+					"query": [
+						{
+							"key": "url",
+							"value": "/cart/delete"
+						}
+					]
+				},
+				"description": "http://shop.ecmobile.cn/ecmobile/?url=/cart/delete"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
